@@ -1,6 +1,6 @@
 # Godot-SMTP-Gmail
 
-Important: if you want to use this with a Gmail account, you have to turn on "Access for less secure apps", you will find detailed tutorials elsewhere. Please don't use your own Gmail account for this, it's probably safe, but lets try and be on the safe side, ok?
+Important: if you want to use this with a Gmail account, you have to turn on "Access for less secure apps", you will find detailed tutorials elsewhere. Please don't use your own personal Gmail account for this, it's probably safe, but lets try and be on the safe side, ok?
 
 This is an overhaul of an existing project by the username Burst (Last active 2018), with added SSL protection and port to Godot 3.2. You can find the original source code here https://godotforums.org/discussion/20317/smtp-client-script-sharing-with-you. I will also add the original code here for safekeeping and posterity.
 
