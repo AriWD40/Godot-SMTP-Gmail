@@ -14,4 +14,4 @@ I have added a few comments in the code, but please contact me for further expla
 **Important**: if you want to use this with a Gmail account, you have to turn on "Access for less secure apps", you will find detailed tutorials elsewhere. Please don't use your own personal Gmail account for this, it's probably safe, but lets try and be on the safe side, ok? 
 
 
-Keywords for google (Maybe somebody needs to find this): SMTP Godot Mail Email Server send receive gmail TCP IP communication script client packets Godot mail smtp simple mail transfer protocol SSL TLS (your princess is in another castle) Exchange encryption Godot 3.2 godot 2.0 serial packetpeerstream streampeer streampeerssl streampeertcp thread
+Keywords for google (Maybe somebody needs to find this): SMTP Godot Mail Email Server send receive gmail TCP IP communication script client packets Godot mail smtp simple mail transfer protocol SSL TLS (your princess is in another castle) Exchange encryption Godot 3.2 godot 2.0 serial packetpeerstream streampeer streampeerssl streampeertcp thread socket port "auth login" helo ehlo 250 334 235
