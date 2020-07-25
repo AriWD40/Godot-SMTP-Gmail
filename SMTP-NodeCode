@@ -4,18 +4,17 @@ extends Node
 ## there are many fantastic code snippets here, please try and mine as much of it as you can, as I have.
 
 # the debug function is quite smart.
-
 var debug = true
 func display(data):
   if debug == true:
     print("debug: ",data)
 
-export var server = "smtp.gmail.com" # you'll find info on the Gmail SMTP at www.google.com :)
-export var port	= 465 # standard SSL port
-export var user = ""#			# put userid for SMTP login
+export var server = "smtp.gmail.com" 		# you'll find info on the Gmail SMTP server at www.google.com :)
+export var port	= 465 	# standard SSL port
+export var user = ""	# put userid for SMTP login
 export var password = ""	# put password for SMTP login
-export var mymailto = ""   # put destination address
-export var mymail = "mail.smtp.localhost" # I found this at some random stackexchange thread
+export var mymailto = ""	# put destination address
+export var mymail = "mail.smtp.localhost" 	# I found this at some random stackexchange thread
 
 
 enum channel {TCP,PACKET}
@@ -44,11 +43,7 @@ func _ready():
   
 
 
-func _process(delta):
-	pass
-
 # This is unbelievably useful. Try using ThreadDeliver without a thread for comparison
-
 func Deliver(data):
 	thread = Thread.new()
 	thread.start(self,"ThreadDeliver",data)
@@ -56,7 +51,6 @@ func Deliver(data):
 
 # If you want to debug the program, this is where you start
 # I made a miniscule change to this function, which was actually extremely hard, and took a few days.
-
 func ThreadDeliver(data):
 	var r_code
 	r_code = OpenSocket()
@@ -79,9 +73,9 @@ func ThreadDeliver(data):
 		r_code =MAILquit()
 	CloseSocket()
 	if r_code == OK:
-		emit_signal("SMTP_disconnected_ok")
+		display("All done")
 	else:
-		emit_signal("SMTP_disconnected_error")
+
 		display("ERROR")
 	return r_code
 
