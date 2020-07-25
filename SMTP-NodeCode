@@ -21,10 +21,6 @@ export var mymail = "mail.smtp.localhost" # I found this at some random stackexc
 enum channel {TCP,PACKET}
 export (channel) var com = channel.TCP
 
-
-var authloginbase64=""
-var authpassbase64=""
-
 var Socket = null
 var PacketSocket = null
 var PacketIn = ""
@@ -39,7 +35,9 @@ var MaxRetries = 5
 var delayTime = 250
 
 var thread = null
-#
+
+var authloginbase64=""
+var authpassbase64=""
 func _ready():
 	if user != "":		authloginbase64=Marshalls.raw_to_base64(user.to_ascii())
 	if password != "":	authpassbase64=Marshalls.raw_to_base64(password.to_ascii())
