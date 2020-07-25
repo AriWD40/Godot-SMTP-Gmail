@@ -7,3 +7,4 @@ In order to rewrite it, I familiarized myself with the SMTP protocol and its ret
 I also had to study the SSL standard, and Godots implementation of it. I have not yet mastered the SSL, but got advice and help from Bojidar Marinov, a Godot developer, found on the Godot Discord server and on github: https://github.com/bojidar-bg. His help was invaluable, as I could not find adequate documentation in Godots Docs pages. Many thanks, Bojidar Marinov!
 
 I have added a few comments in the code, but please contact me for further explanaitions, though I won't promise how well I'll remember any of this if a long time has passed. Find me on Discord, username: Mosfet.
+
