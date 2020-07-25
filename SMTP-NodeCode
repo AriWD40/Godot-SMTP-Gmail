@@ -1,38 +1,11 @@
 extends Node
 
-###########################################################
-#
-# ExtraSimple SMTP client
-#
-# 1 - import in your project
-# 2 - put values in var server, user, password,
-#		mailto, mymail
-# 3 - call method Deliver(data) to send mail
-#
-###########################################################
-
-###########################################################
-#
-#
-# d: inner class for simple debug - begin
-#
-#
-###########################################################
 
 
 var debug = true
 func display(data):
   if debug == true:
     print("debug: ",data)
-
-###########################################################
-#
-#
-# d: inner class for simple debug - end
-#
-#
-###########################################################
-
 
 export var server = "smtp.gmail.com"
 export var port	= 465 # standard SSL port
@@ -41,32 +14,9 @@ export var password = ""	# put password for SMTP login
 export var mymailto = ""   # put destination address
 export var mymail = "mail.smtp.localhost"
 
-###########################################################
-#
-# signals
-#
-###########################################################
-
-signal SMTP_connecting
-signal SMTP_connected
-signal SMTP_working
-signal SMTP_disconnected_error
-signal SMTP_disconnected_ok
-
-###########################################################
-#
-# method used to connect
-#
-###########################################################
-
 enum channel {TCP,PACKET}
 export (channel) var com = channel.TCP
 
-###########################################################
-#
-# storage area
-#
-###########################################################
 
 var authloginbase64=""
 var authpassbase64=""
@@ -81,7 +31,7 @@ enum esi {OK,KO}
 enum stati {OK,WAITING,NO_RESPONSE,UNHANDLED_REPONSE}
 export (stati) var stato
 
-var MaxRetries = 30
+var MaxRetries = 5
 var delayTime = 250
 
 var thread = null
@@ -134,6 +84,9 @@ var Bocket = null
 # I added the variable Bocket, as a wrap around the Socket (originally called socket anyway), 
 # it's an SSL wrapper for Streampeers, I don't know much about these things, 
 # but you learn a lot by messing around with things.
+# I like creating silly names for variables, it keeps me motivated,
+# reminds me that creating code is my choice, to do how I please. 
+
 
 func OpenSocket():
 	var error
@@ -143,7 +96,6 @@ func OpenSocket():
 		error=Bocket.connect_to_host(server,port )		
 		Socket = StreamPeerSSL.new()
 		Socket.connect_to_stream(Bocket, true, server)
-		
 
 	display(["connecting server...",server,error])
 
