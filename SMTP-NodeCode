@@ -1,18 +1,22 @@
 extends Node
 
+## This looks like it was created by a CS student at a university graduation level,
+## there are many fantastic code snippets here, please try and mine as much of it as you can, as I have.
 
+# the debug function is quite smart.
 
 var debug = true
 func display(data):
   if debug == true:
     print("debug: ",data)
 
-export var server = "smtp.gmail.com"
+export var server = "smtp.gmail.com" # you'll find info on the Gmail SMTP at www.google.com :)
 export var port	= 465 # standard SSL port
-export var user = ""#			# put userid for SMTP login
-export var password = ""	# put password for SMTP login
-export var mymailto = ""   # put destination address
-export var mymail = "mail.smtp.localhost"
+export var user = "frankari899@gmail.com"#			# put userid for SMTP login
+export var password = "joe.12345"	# put password for SMTP login
+export var mymailto = "ari.gudmundss@gmail.com"   # put destination address
+export var mymail = "mail.smtp.localhost" # I found this at some random stackexchange thread
+
 
 enum channel {TCP,PACKET}
 export (channel) var com = channel.TCP
@@ -35,7 +39,7 @@ var MaxRetries = 5
 var delayTime = 250
 
 var thread = null
-
+#
 func _ready():
 	if user != "":		authloginbase64=Marshalls.raw_to_base64(user.to_ascii())
 	if password != "":	authpassbase64=Marshalls.raw_to_base64(password.to_ascii())
@@ -45,12 +49,15 @@ func _ready():
 func _process(delta):
 	pass
 
+# This is unbelievably useful. Try using ThreadDeliver without a thread for comparison
+
 func Deliver(data):
 	thread = Thread.new()
 	thread.start(self,"ThreadDeliver",data)
 
 
-#If you want to debug the program, this is where you start
+# If you want to debug the program, this is where you start
+# I made a miniscule change to this function, which was actually extremely hard, and took a few days.
 
 func ThreadDeliver(data):
 	var r_code
@@ -180,13 +187,14 @@ func MAILhello():
 	r_code= WaitAnswer("250")
 	return r_code
 
+# the MAILauth() function was broken, I fixed it, you're welcome
 func MAILauth():
 	var r_code=send("AUTH LOGIN")
 	r_code=WaitAnswer("334")
 	
 	#print("MAILauth()  , AUTH LOGIN ", r_code) 
   # when debugging, add print statements everywhere you fail to progress.
-  
+
 	if r_code == OK:
 		r_code=send(authloginbase64)
 	r_code = WaitAnswer("334")
@@ -238,4 +246,5 @@ func bracket(data):
 
 
 func _on_Button_pressed() -> void:
-	Deliver("..")
+	Deliver(".. ")
+	# I still haven't figured out how to send a message without an extra dot at the end of the message
