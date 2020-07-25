@@ -12,9 +12,9 @@ func display(data):
 
 export var server = "smtp.gmail.com" # you'll find info on the Gmail SMTP at www.google.com :)
 export var port	= 465 # standard SSL port
-export var user = "frankari899@gmail.com"#			# put userid for SMTP login
-export var password = "joe.12345"	# put password for SMTP login
-export var mymailto = "ari.gudmundss@gmail.com"   # put destination address
+export var user = ""#			# put userid for SMTP login
+export var password = ""	# put password for SMTP login
+export var mymailto = ""   # put destination address
 export var mymail = "mail.smtp.localhost" # I found this at some random stackexchange thread
 
 
