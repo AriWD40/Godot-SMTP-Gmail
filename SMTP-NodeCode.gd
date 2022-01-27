@@ -6,19 +6,19 @@ extends Node
 # the debug function is quite smart.
 var debug = true
 func display(data):
-  if debug == true:
-    print("debug: ",data)
+	if debug == true:
+		print("debug: ",data)
 
-export var server = "smtp.gmail.com" 		# you'll find info on the Gmail SMTP server at www.google.com :)
-export var port	= 465 	# standard SSL port
-export var user = ""	# put userid for SMTP login
-export var password = ""	# put password for SMTP login
-export var mymailto = ""	# put destination address
-export var mymail = "mail.smtp.localhost" 	# I found this at some random stackexchange thread
+@export var server = "smtp.gmail.com" 		# you'll find info on the Gmail SMTP server at www.google.com :)
+@export var port	= 465 	# standard SSL port
+@export var user = ""	# put userid for SMTP login
+@export var password = ""	# put password for SMTP login
+@export var mymailto = ""	# put destination address
+@export var mymail = "mail.smtp.localhost" 	# I found this at some random stackexchange thread
 
 
 enum channel {TCP,PACKET}
-export (channel) var com = channel.TCP
+@export var com: channel = channel.TCP
 
 var Socket = null
 var PacketSocket = null
@@ -28,7 +28,7 @@ var PacketOut = ""
 enum esi {OK,KO}    
 
 enum stati {OK,WAITING,NO_RESPONSE,UNHANDLED_REPONSE}
-export (stati) var stato
+@export var stato: stati
 
 var MaxRetries = 5
 var delayTime = 250
@@ -38,15 +38,15 @@ var thread = null
 var authloginbase64=""
 var authpassbase64=""
 func _ready():
-	if user != "":		authloginbase64=Marshalls.raw_to_base64(user.to_ascii())
-	if password != "":	authpassbase64=Marshalls.raw_to_base64(password.to_ascii())
+	if user != "":	authloginbase64=Marshalls.raw_to_base64(user.to_ascii_buffer())
+	if password != "":	authpassbase64=Marshalls.raw_to_base64(password.to_ascii_buffer())
   
 
 
 # This is unbelievably useful. Try using ThreadDeliver without a thread for comparison
 func Deliver(data):
 	thread = Thread.new()
-	thread.start(self,"ThreadDeliver",data)
+	thread.start(Callable(self,"ThreadDeliver"),data)
 
 
 # If you want to debug the program, this is where you start
@@ -55,7 +55,7 @@ func ThreadDeliver(data):
 	var r_code
 	r_code = OpenSocket()
 	if r_code == OK:
-		r_code =WaitAnswer()
+		r_code = WaitAnswer()
 	if r_code == OK:
 		r_code = MAILhello()
 	if r_code == OK:
@@ -92,7 +92,7 @@ func OpenSocket():
 
 	if Bocket == null:
 		Bocket=StreamPeerTCP.new()
-		error=Bocket.connect_to_host(server,port )		
+		error=Bocket.connect_to_host(server,port )
 		Socket = StreamPeerSSL.new()
 		Socket.connect_to_stream(Bocket, true, server)
 
@@ -131,7 +131,7 @@ func sendOnly(data1,data2=null,data3=null):
 	PacketOut = PacketOut + "\n"
 
 	if com == channel.TCP:
-		error=Socket.put_data(PacketOut.to_utf8())
+		error=Socket.put_data(PacketOut.to_utf8_buffer())
 		if error == null:
 			error = "NULL"
 	display(["send","r_code",error])
@@ -147,7 +147,7 @@ func WaitAnswer(succesful=""):
 			Socket.poll()
 			var bufLen = Socket.get_available_bytes()
 			if bufLen > 0:
-				display(["bytes buffered",String(bufLen)])
+				display(["bytes buffered",str(bufLen)])
 				PacketIn=PacketIn + Socket.get_utf8_string(bufLen)
 				display(["receive",PacketIn])
 				
@@ -237,6 +237,6 @@ func bracket(data):
 
 
 
-func _on_Button_pressed() -> void:
+func _on_button_pressed() -> void:
 	Deliver(".. ")
 	# I still haven't figured out how to send a message without an extra dot at the end of the message
